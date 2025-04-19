@@ -9,7 +9,7 @@ if os.path.exists(path):
     user = {"client_id": os.environ["CLIENT_ID"],
             "secret_key": os.environ["SECRET_KEY"],
             "username": os.environ["REDDIT_USERNAME"],
-            "password": os.environ["REDDIT PASSWORD"]}
+            "password": os.environ["REDDIT_PASSWORD"]}
     
     print(f"Your username is {os.environ['REDDIT_USERNAME']} and your key is {os.environ['SECRET_KEY']}")
 else:
