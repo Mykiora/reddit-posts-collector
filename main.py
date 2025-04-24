@@ -40,18 +40,23 @@ def get_post(url, headers):
         headers (dict): Headers containing the user agent and the authorization token. (Look authenticate function) 
 
     Returns:
-        dict: A dictionary containing the title, the author's post, the subreddit, the number of ups, the upvote ratio and if gilded or not.
+        str: A giant string containing all the info about the posts (you could feed it to a LLM)
     """
-    post = requests.get(url, headers=headers).json()
+    posts = requests.get(url, headers=headers).json()["data"]["children"]
+    info = ""
 
-    title = post[0]["data"]["children"][0]["data"]["title"]
-    subreddit = post[0]["data"]["children"][0]["data"]["subreddit"]
-    post_text = post[0]["data"]["children"][0]["data"]["selftext"]
-    gilded = post[0]["data"]["children"][0]["data"]["gilded"]
-    ups = post[0]["data"]["children"][0]["data"]["ups"]
-    upvote_ratio = post[0]["data"]["children"][0]["data"]["upvote_ratio"]
+    for x in range(50):
+        title = posts[x]["data"]["title"]
+        subreddit = posts[x]["data"]["subreddit"]
+        post_text = posts[x]["data"]["selftext"] if posts[x]["data"]["selftext"] != "" else "No text provided by the author"
+        gilded = posts[x]["data"]["gilded"]
+        ups = posts[x]["data"]["ups"]
+        upvote_ratio = posts[x]["data"]["upvote_ratio"]
+        post_url = posts[x]["data"]["permalink"]
 
-    return {"title": title, "subreddit": subreddit, "text": post_text, "gilded": gilded, "ups": ups, "upvote_ratio": upvote_ratio}
+        info += f"POST N°{x+1}\ntitle: {title}\nsubreddit: {subreddit}\npost_text: {post_text}\ngilded: {gilded}\nups: {ups}\nupvote_ratio: {upvote_ratio}\nurl: {post_url}\n\n"
+
+    return info
 
 
 path = ".env"
@@ -65,7 +70,8 @@ if os.path.exists(path):
             "password": os.environ["REDDIT_PASSWORD"]}
     
     headers = authenticate(username=user["username"], password=user["password"], client_id=user["client_id"], secret_key=user["secret_key"])
-    print(get_post(url="https://oauth.reddit.com/r/redditdev/comments/3qbll8/429_too_many_requests.json", headers=headers))
+    #print(get_post(url="https://oauth.reddit.com/r/redditdev/comments/3qbll8/429_too_many_requests.json", headers=headers))
+    print(get_post(url="https://oauth.reddit.com/best?limit=50", headers=headers))
 else:
     client_id = input("Enter your client ID (personal use script): ")
     secret_key = input("Enter your secret key: ")
