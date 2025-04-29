@@ -57,7 +57,7 @@ class RedditClient:
 
 
     def save_post_content(self, post_data, post_id):
-        with open("post_data.txt", "a", encoding="utf-8") as f:
+        with open("data/post_data.txt", "a", encoding="utf-8") as f:
             f.write(
                 f'POST N°{post_id}\n'
                 f'title: {post_data["title"]}\n'
