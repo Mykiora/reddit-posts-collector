@@ -33,29 +33,38 @@ class RedditClient:
         return {"User-Agent": headers["User-Agent"],
                 "Authorization": f"bearer {request.json()['access_token']}"}
 
+    
+    def fetch_posts(self, url, headers):
+        try:
+            posts = requests.get(url, headers=headers).json()["data"]["children"]
+            return posts
+        except requests.RequestException as e:
+            print(f"Error: {e}")
+            return None
+    
 
-    def get_post(self, url, headers):
-        """Fetches pieces of information about a post.
+    def parse_post_data(self, post):
+        title = post["data"]["title"]
+        subreddit = post["data"]["subreddit"]
+        post_text = post["data"]["selftext"] if post["data"]["selftext"] != "" else "No text provided by the author"
+        gilded = post["data"]["gilded"]
+        ups = post["data"]["ups"]
+        upvote_ratio = post["data"]["upvote_ratio"]
+        post_url = post["data"]["permalink"]
 
-        Args:
-            url (str): The URL of the post to fetch.
-            headers (dict): Headers containing the user agent and the authorization token. (Look authenticate function) 
+        return {"title": title, "subreddit": subreddit, "post_text": post_text,
+                "gilded": gilded, "ups": ups, "upvote_ratio": upvote_ratio, "post_url": post_url}
 
-        Returns:
-            str: A giant string containing all the info about the posts (you could feed it to a LLM)
-        """
-        posts = requests.get(url, headers=headers).json()["data"]["children"]
-        info = ""
 
-        for x in range(50):
-            title = posts[x]["data"]["title"]
-            subreddit = posts[x]["data"]["subreddit"]
-            post_text = posts[x]["data"]["selftext"] if posts[x]["data"]["selftext"] != "" else "No text provided by the author"
-            gilded = posts[x]["data"]["gilded"]
-            ups = posts[x]["data"]["ups"]
-            upvote_ratio = posts[x]["data"]["upvote_ratio"]
-            post_url = posts[x]["data"]["permalink"]
-
-            info += f"POST N°{x+1}\ntitle: {title}\nsubreddit: {subreddit}\npost_text: {post_text}\ngilded: {gilded}\nups: {ups}\nupvote_ratio: {upvote_ratio}\nurl: {post_url}\n\n"
-
-        return info
+    def save_post_content(self, post_data, post_id):
+        with open("post_data.txt", "a", encoding="utf-8") as f:
+            f.write(
+                f'POST N°{post_id}\n'
+                f'title: {post_data["title"]}\n'
+                f'subreddit: {post_data["subreddit"]}\n'
+                f'post_text: {post_data["post_text"]}\n'
+                f'gilded: {post_data["gilded"]}\n'
+                f'ups: {post_data["ups"]}\n'
+                f'upvote_ratio: {post_data["upvote_ratio"]}\n'
+                f'url: {post_data["post_url"]}\n\n'
+            )

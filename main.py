@@ -14,7 +14,11 @@ if os.path.exists(path):
             "password": os.environ["REDDIT_PASSWORD"]}
     
     client = RedditClient(client_id=user["client_id"], secret_key=user["secret_key"], username=user["username"], password=user["password"])
-    print(client.get_post(url="https://oauth.reddit.com/best?limit=50", headers=client.headers))
+    posts = client.fetch_posts("https://oauth.reddit.com/best?limit=50", client.headers)
+
+    for x in range(50):
+        post_data = client.parse_post_data(posts[x])
+        client.save_post_content(post_data, x+1)
 else:
     client_id = input("Enter your client ID (personal use script): ")
     secret_key = input("Enter your secret key: ")
