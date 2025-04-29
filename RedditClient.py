@@ -34,9 +34,9 @@ class RedditClient:
                 "Authorization": f"bearer {request.json()['access_token']}"}
 
     
-    def fetch_posts(self, url, headers):
+    def fetch_posts(self, headers, subreddit="", filter="hot", limit=50):
         try:
-            posts = requests.get(url, headers=headers).json()["data"]["children"]
+            posts = requests.get(f"https://oauth.reddit.com/{subreddit}/{filter}?limit={limit}", headers=headers).json()["data"]["children"]
             return posts
         except requests.RequestException as e:
             print(f"Error: {e}")
