@@ -41,7 +41,7 @@ All you have to do is run the "main.py" file and follow the instrutions. Everyth
 ## Description
 Ceci est un projet destiné à montrer une partie de mon éventail de capacités à des employeurs. Ce script fait appel à l'API de Reddit pour collecter un certain nombre de posts (ainsi que des informations sur ces derniers) fixé par l'utilisateur, ou sur la page d'accueil, ou sur un subreddit bien spécifique. Ces posts sont ensuite temporairement sauvegardés dans un fichier texte sur lequel un RAG (Retrival Augmented Generation) sera appliqué, un modèle d'OpenAI recommandant les 3 - 5 posts les plus susceptibles de plaire à l'utilisateur.
 
-# Pré-requis
+## Pré-requis
 Ce script considère que:
 - Vous possédez votre propre application Reddit. ([tutoriel vidéo ici (anglais)](https://youtu.be/KmFKO1dp_vQ?si=yIzYlWqkx8KAmurQ)). Facile, rapide et gratuit. Utilisez "https://localhost:8080" comme "redirect uri".
 - Vous disposez d'une clé d'API OpenAI. ([tutoriel vidéo ici (anglais)](https://youtu.be/gBSh9JI28UQ?si=BAWFhPr3-s-0ZaH-)) Attention: PAYANT.
