@@ -1,3 +1,6 @@
+[English](#english)
+[French](#french)
+
 # English
 
 ## Description
