@@ -38,31 +38,32 @@ Your restrictions:
 The user's request that you have to fulfill is the following: {question}
 """
 
+
 def load_documents():
-        loader = DirectoryLoader(DATA_PATH)
-        documents = loader.load()
-        return documents
-    
+    loader = DirectoryLoader(DATA_PATH)
+    documents = loader.load()
+    return documents
+
+
 def split_text(documents):
     text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000,
-            chunk_overlap=500,
-            length_function=len,
-            add_start_index=True
-            )
+        chunk_size=1000, chunk_overlap=500, length_function=len, add_start_index=True
+    )
 
     chunks = text_splitter.split_documents(documents)
 
     return chunks
 
+
 def save_to_chroma(chunks):
     if os.path.exists(CHROMA_PATH):
-         shutil.rmtree(CHROMA_PATH)
+        shutil.rmtree(CHROMA_PATH)
 
     db = Chroma.from_documents(
-         chunks, OpenAIEmbeddings(), persist_directory=CHROMA_PATH
+        chunks, OpenAIEmbeddings(), persist_directory=CHROMA_PATH
     )
     db.persist()
+
 
 def query_data(query=QUERY):
     embedding_function = OpenAIEmbeddings()
@@ -73,17 +74,14 @@ def query_data(query=QUERY):
     if len(results) == 0 or results[0][1] < 0.7:
         print(f"Unable to find matching results.")
         return
-    
+
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     # print(context_text)
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, question=query)
 
-    model = ChatOpenAI(
-         model="gpt-4.1-nano",
-         temperature=0.6
-    )
+    model = ChatOpenAI(model="gpt-4.1-nano", temperature=0.6)
 
     response = model.invoke(prompt)
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
     print(response.content)
