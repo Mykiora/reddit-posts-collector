@@ -1,5 +1,6 @@
 from requests.auth import HTTPBasicAuth
 import requests
+import os
 
 
 class RedditClient:
@@ -57,6 +58,9 @@ class RedditClient:
 
 
     def save_post_content(self, post_data, post_id):
+        if not os.path.exists("data"):
+            os.mkdir("data")
+
         with open("data/post_data.txt", "a", encoding="utf-8") as f:
             f.write(
                 f'POST N°{post_id}\n'

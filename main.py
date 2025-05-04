@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from RedditClient import RedditClient
 import rag
 import os
+import shutil
 
 PATH = ".env"
 SUBREDDIT = "" # With '/r'
@@ -10,6 +11,8 @@ POST_LIMIT = 50
 RAG = 1
 
 def main():
+    if os.path.exists("data/post_data.txt"):
+        shutil.rmtree("data")
 
     if os.path.exists(PATH):
         load_dotenv()
