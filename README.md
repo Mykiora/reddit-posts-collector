@@ -53,7 +53,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-Si c'est la première fois que vous installez le programme, il vous sera demandé d'entrer vos identifiants Reddit, votre clé d'API OpenAI, ainsi que le client ID et le client secret (que vous pouvez trouvé là où vous avez créé votre app Reddit à [cette url](https://reddit.com/prefs/apps)). Alors, assurez-vous d'avoir préparé ces informations.
+Si c'est la première fois que vous installez le programme, il vous sera demandé d'entrer vos identifiants Reddit, votre clé d'API OpenAI, ainsi que le client ID et le client secret (que vous pouvez trouver là où vous avez créé votre app Reddit à [cette url](https://reddit.com/prefs/apps)). Alors, assurez-vous d'avoir préparé ces informations.
 
 ## Utilisation
 Tout ce que vous avez à faire est d'exécuter le fichier "main.py" et suivre les instructions. Tout se fera automatiquement en l'espace de quelques secondes. Tout en haut de ce fichier, il y a des paramètres que vous pouvez modifier. Ils sont:
