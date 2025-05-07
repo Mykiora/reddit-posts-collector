@@ -4,18 +4,30 @@ import os
 
 
 class RedditClient:
-    def __init__(self, client_id, secret_key, username, password):
+    def __init__(self, client_id: str, secret_key: str, username: str, password: str) -> None:
+        """Creates a RedditClient object that will be used to fetch the posts with the API.
+           Automatically authenticates and get the headers (User-Agent + Authorization).
+
+        Args:
+            client_id (str): App ID ("personal use script" at https://reddit.com/prefs/apps)
+            secret_key (str): App Secret key located at https://reddit.com/prefs/apps
+            username (str): Reddit account username
+            password (str): Reddit account password
+        """
         self.headers = self.authenticate(client_id, secret_key, username, password)
 
-    def authenticate(self, client_id, secret_key, username, password):
+    def authenticate(self, client_id: str, secret_key: str, username: str, password: str) -> dict:
         """Sends a request to reddit to get the access token needed to authenticate. Token valid for 24 hours.
         Returns a dictionary containing the token and the headers.
 
         Args:
+            client_id (str): App ID ("personal use script" at https://reddit.com/prefs/apps)
+            secret_key (str): App Secret key located at https://reddit.com/prefs/apps
             username (str): Reddit account username
             password (str): Reddit account password
-            client_id (str): App ID ("personal use script" at https://reddit.com/prefs/apps)
-            secret_key (str): Secret key located at https://reddit.com/prefs/apps
+        
+        Returns:
+            dict: A dictionary containing the User-Agent and the Authorization bearer to use the API.
         """
 
         data = {"grant_type": "password", "username": username, "password": password}
@@ -36,7 +48,18 @@ class RedditClient:
             "Authorization": f"bearer {request.json()['access_token']}",
         }
 
-    def fetch_posts(self, headers, subreddit="", filter="hot", limit=50):
+    def fetch_posts(self, headers: dict[str], subreddit: str = "", filter: str = "hot", limit: int = 50) -> list[dict] | None:
+        """Sends a request to get a list of posts.
+
+        Args:
+            headers (dict): Dict containing the User-Agent and the Authorization bearer.
+            subreddit (str, optional): Subreddit to fetch. Only the name and including "/r". Defaults to "".
+            filter (str, optional): Homepage or subreddit filter. (best, hot, top, controversial, rising, new) Defaults to "hot".
+            limit (int, optional): Number of posts fetched. Defaults to 50.
+
+        Returns:
+            list[dict] | None: A list of dictionaries containing posts and information about them. None if the requests fails. 
+        """
         try:
             posts = requests.get(
                 f"https://oauth.reddit.com/{subreddit}/{filter}?limit={limit}",
@@ -47,7 +70,16 @@ class RedditClient:
             print(f"Error: {e}")
             return None
 
-    def parse_post_data(self, post):
+    def parse_post_data(self, post: list[dict]) -> dict:
+        """Takes ONE particular post dictionary gotten from the fetch_posts function and parses its data.
+
+        Args:
+            post (list[dict]): A list of dictionaries containing information about a post. Such as the title,
+                               the number of upvotes, the messages, etc...
+
+        Returns:
+            dict: A dictionary containing all the needed information. 
+        """
         title = post["data"]["title"]
         subreddit = post["data"]["subreddit"]
         post_text = (
@@ -70,7 +102,13 @@ class RedditClient:
             "post_url": post_url,
         }
 
-    def save_post_content(self, post_data, post_id):
+    def save_post_content(self, post_data: dict, post_id: int) -> None:
+        """Saves the post data in a text file.
+
+        Args:
+            post_data (dict): The dicionary gotten from the parse_post_data function.
+            post_id (int): An arbitrary number (not tied to anything) acting as a visual help in the text file.
+        """
         if not os.path.exists("data"):
             os.mkdir("data")
 

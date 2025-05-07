@@ -9,6 +9,8 @@ import os
 import shutil
 import openai
 
+# REFERENCE FOR THE CODE: https://github.com/pixegami/langchain-rag-tutorial
+
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 CHROMA_PATH = "chroma"
