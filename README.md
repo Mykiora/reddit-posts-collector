@@ -6,6 +6,8 @@
 ## Description
 This is a project meant to show my skills to employers. This script uses Reddit's API to collect a number of posts (along with their information) set by the user either on the homepage or on a specific subreddit. These posts are then saved in a text file on which Retrieval Augmented Generation is applied with a model from OpenAI in order to recommend 3 - 5 best current posts for the user.
 
+![Example of execution (English)](assets/app_screenshot_en.png?raw=true "Optional Title")
+
 ## Requirements
 The script assumes that:
 - You have your own reddit app ([video tutorial here](https://youtu.be/KmFKO1dp_vQ?si=yIzYlWqkx8KAmurQ)) really easy, fast, and free. Use "http://localhost:8080" as the redirect uri.
@@ -40,6 +42,8 @@ All you have to do is run the "main.py" file and follow the instrutions. Everyth
 
 ## Description
 Ceci est un projet destiné à montrer une partie de mon éventail de capacités à des employeurs. Ce script fait appel à l'API de Reddit pour collecter un certain nombre de posts (ainsi que des informations sur ces derniers) fixé par l'utilisateur, ou sur la page d'accueil, ou sur un subreddit bien spécifique. Ces posts sont ensuite temporairement sauvegardés dans un fichier texte sur lequel un RAG (Retrival Augmented Generation) sera appliqué, un modèle d'OpenAI recommandant les 3 - 5 posts les plus susceptibles de plaire à l'utilisateur.
+
+![Example of execution (French)](assets/app_screenshot_fr.png?raw=true "Optional Title")
 
 ## Pré-requis
 Ce script considère que:

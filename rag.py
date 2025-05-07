@@ -36,6 +36,7 @@ Your restrictions:
 - The response should be quickly and easily readable for a human. So, don't make it excessively long.
 - Don't use any markdown.
 - Write with a friendly and slightly witty tone, but avoid exaggerated humor.
+- Your answer should be entirely written in French.
 
 The user's request that you have to fulfill is the following: {question}
 """
