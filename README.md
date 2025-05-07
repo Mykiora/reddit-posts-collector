@@ -3,6 +3,9 @@
 
 # English
 
+## Used skills
+Virtual Environments, APIs, Object Oriented Programming, Splitting the project into multiple modules, Artificial Intelligence, Langchain, Documentation, English
+
 ## Description
 This is a project meant to show my skills to employers. This script uses Reddit's API to collect a number of posts (along with their information) set by the user either on the homepage or on a specific subreddit. These posts are then saved in a text file on which Retrieval Augmented Generation is applied with a model from OpenAI in order to recommend 3 - 5 best current posts for the user.
 
@@ -40,6 +43,9 @@ All you have to do is run the "main.py" file and follow the instrutions. Everyth
 
 # French
 
+## Compétences mises en pratique
+Environnements virtuels, APIs, Programmation Orientée Objet, séparation du projet en de multiples modules, intelligence artificielle, Langchain, documentation, anglais
+
 ## Description
 Ceci est un projet destiné à montrer une partie de mon éventail de capacités à des employeurs. Ce script fait appel à l'API de Reddit pour collecter un certain nombre de posts (ainsi que des informations sur ces derniers) fixé par l'utilisateur, ou sur la page d'accueil, ou sur un subreddit bien spécifique. Ces posts sont ensuite temporairement sauvegardés dans un fichier texte sur lequel un RAG (Retrival Augmented Generation) sera appliqué, un modèle d'OpenAI recommandant les 3 - 5 posts les plus susceptibles de plaire à l'utilisateur.
 
@@ -72,3 +78,6 @@ Tout ce que vous avez à faire est d'exécuter le fichier "main.py" et suivre le
 - filter: des filtres Reddit que vous pouvez appliquer aux posts recherchés. Choisissez parmi: best, hot, new, rising, top, controversial.
 - post_limit: Le nombre de posts que vous voulez récupérer (peut causer des problèmes si ce paramètre est fixé à un nombre plus grand que le nombre de posts disponnibles sur un subreddit donné)
 - rag: Procède au RAG sur les données des posts collectés si ce paramètre est fixé à 1 (coûte de l'argent). Saute complètement ce processus si fixé à 0. (Vous ne disposerez alors que données brutes dans data/post_data.txt)
+
+## Credits
+RAG code reference: https://github.com/pixegami/langchain-rag-tutorial
