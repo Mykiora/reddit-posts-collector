@@ -11,11 +11,11 @@ POST_LIMIT = 50
 RAG = 1
 
 def main():
-    print("The program is working. Please wait...")
     if os.path.exists("data/post_data.txt"):
         shutil.rmtree("data")
 
     if os.path.exists(PATH):
+        print("The program is working. Please wait...")
         load_dotenv()
 
         user = {"client_id": os.environ["CLIENT_ID"],
@@ -47,6 +47,9 @@ def main():
 
         with open(PATH, "w") as dotenv_file:
             dotenv_file.write(f"CLIENT_ID={client_id}\nSECRET_KEY={secret_key}\nREDDIT_USERNAME={username}\nREDDIT_PASSWORD={password}\nOPENAI_API_KEY={openai_api_key}")
+
+        # Start over after saving the file containing all needed information
+        main()    
 
 
 if __name__ == "__main__":
