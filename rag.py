@@ -5,11 +5,14 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
+from dotenv import load_dotenv
 import os
 import shutil
 import openai
 
 # REFERENCE FOR THE CODE: https://github.com/pixegami/langchain-rag-tutorial
+
+load_dotenv()
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
