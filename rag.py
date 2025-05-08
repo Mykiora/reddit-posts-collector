@@ -1,8 +1,8 @@
-from langchain.document_loaders import DirectoryLoader
+from langchain_community.document_loaders import DirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema import Document
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores.chroma import Chroma
+from langchain_openai import OpenAIEmbeddings
+from langchain_chroma import Chroma
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 import os
@@ -65,7 +65,6 @@ def save_to_chroma(chunks):
     db = Chroma.from_documents(
         chunks, OpenAIEmbeddings(), persist_directory=CHROMA_PATH
     )
-    db.persist()
 
 
 def query_data(query=QUERY):
